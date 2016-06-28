@@ -9,8 +9,11 @@ class ArticlesController < ApplicationController
   def new
     @article=Article.new
   end
+  
   def edit
+    
   end
+  
   def create
     #render plain:params[:article].inspect
     @article = Article.new(article_params)
@@ -24,6 +27,7 @@ class ArticlesController < ApplicationController
       render 'new'
     end
   end
+  
   def update
     if @article.update(article_params)
       flash[:success]="Article is successfully updated "
@@ -34,19 +38,24 @@ class ArticlesController < ApplicationController
   end
   
   def show 
+    
   end
+  
   def destroy
     @article.destroy
     flash[:danger]="Article was successfully deleted"
     redirect_to articles_path
   end
+  
   private
     def set_article
       @article = Article.find(params[:id])
     end
+    
     def article_params  
       params.require(:article).permit(:title, :description)
     end
+    
     def require_same_user
       if current_user != @article.user and !current_user.admin?
         flash[:danger] = "You can only edit or delete your own articles"
